@@ -1,4 +1,4 @@
-(defproject org.clojars.ludug3r0/go-schema "0.0.2-SNAPSHOT"
+(defproject org.clojars.ludug3r0/go-schema "0.0.3-SNAPSHOT"
             :description "A set of schemas and utility function to operate on cljx.go data structures"
             :url "https://github.com/ludug3r0/go-schema"
             :license {:name "Eclipse Public License"

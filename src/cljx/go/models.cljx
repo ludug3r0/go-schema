@@ -2,28 +2,31 @@
   (:require [schema.core :as s]
             [go.schema :as schema]))
 
-(defn- valid?
-  [schema value]
-  (when-not (s/check schema value)
-    value))
+;; validators
+(defn is-pass?
+  [move]
+  (schema/valid? schema/passing move))
 
-(s/defn stone-color :- schema/color
-  [stone :- schema/stone]
-  (first stone))
+(defn is-placement?
+  [move]
+  (schema/valid? schema/placement move))
 
-(s/defn move-color :- schema/color
+(defn is-resignation?
+  [move]
+  (schema/valid? schema/resignation move))
+
+
+;; move models
+(s/defn color :- schema/color
   [move :- schema/move]
   (first move))
 
-(s/defn stone-vertex :- schema/vertex
-  [stone :- schema/stone]
-  (second stone))
+(s/defn move :- (s/either schema/vertex schema/pass schema/resign)
+  [move :- schema/move]
+  (second move))
 
-(s/defn moves :- [schema/move]
+;; game model
+(s/defn stones :- [schema/placement]
   [game :- schema/game]
-  (filter (partial valid? schema/move) game))
-
-(s/defn stones :- [schema/stone]
-  [game :- schema/game]
-  (filter (partial valid? schema/stone) game))
+  (filter is-placement? game))
 

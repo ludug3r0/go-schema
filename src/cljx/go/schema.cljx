@@ -1,6 +1,12 @@
 (ns go.schema
   (:require [schema.core :as s]))
 
+
+(defn valid?
+  [schema value]
+  (when-not (s/check schema value)
+    value))
+
 (def color
   (s/enum :black :white))
 
@@ -9,22 +15,45 @@
     (apply s/enum positions)))
 
 (def vertex
-  [(s/one coordinate "column") (s/one coordinate "line")])
+  (s/pair coordinate 'column
+          coordinate 'line))
 
-(def stone
-  [(s/one color "color") (s/one vertex "vertex")])
+(def placement
+  (s/pair color 'color
+          vertex 'vertex))
 
 (def pass
-  [(s/one color "color") (s/one (s/eq :pass) "pass")])
+  (s/eq :pass))
+
+(def passing
+  (s/pair color 'color
+          pass 'pass))
+
+(def resign
+  (s/eq :resign))
+
+(def resignation
+  (s/pair color 'color
+          resign 'resign))
 
 (def move
-  (s/either stone pass))
+  (s/either placement passing resignation))
+
+(defn- optional-resignation-is-the-last-move?
+  [moves]
+  (let [resignations (filter (partial valid? resignation) moves)]
+    (case (count resignations)
+      0 true
+      1 (valid? resignation (last moves))
+      false)))
 
 (def game
-  [move])
+  (s/both
+    [move]
+    (s/pred optional-resignation-is-the-last-move? 'optional-resignation-is-the-last-move?)))
 
 (def configuration
-  #{stone})
+  #{placement})
 
 
 
