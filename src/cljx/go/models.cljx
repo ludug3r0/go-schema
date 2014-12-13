@@ -1,18 +1,18 @@
 (ns go.models
-  (:require [schema.core :as s]
+  (:require [schema.core :as s :include-macros true]
             [go.schema :as schema]))
 
 ;; validators
-(defn is-pass?
-  [move]
+(s/defn is-pass?
+  [move :- schema/move]
   (schema/valid? schema/passing move))
 
-(defn is-placement?
-  [move]
+(s/defn is-placement?
+  [move :- schema/move]
   (schema/valid? schema/placement move))
 
-(defn is-resignation?
-  [move]
+(s/defn is-resignation?
+  [move :- schema/move]
   (schema/valid? schema/resignation move))
 
 

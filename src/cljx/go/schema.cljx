@@ -1,7 +1,6 @@
 (ns go.schema
   (:require [schema.core :as s]))
 
-
 (defn valid?
   [schema value]
   (when-not (s/check schema value)
