@@ -8,7 +8,7 @@
             :scm {:name "git"
                   :url  "https://github.com/ludug3r0/go-schema"}
             :profiles {:dev {:dependencies [[expectations "2.0.9"]]
-                             :plugins      [[com.keminglabs/cljx "0.4.0"]
+                             :plugins      [[com.keminglabs/cljx "0.4.0" :exclusions [org.clojure/clojure]]
                                             [lein-expectations "0.0.7"]]}}
             :source-paths ["target/generated/src/clj"]
             :test-paths ["test/clj"]
