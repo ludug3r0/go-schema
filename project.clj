@@ -11,8 +11,7 @@
                                             [com.keminglabs/cljx "0.4.0" :exclusions [org.clojure/clojure]]]
                              :plugins      [[com.keminglabs/cljx "0.4.0" :exclusions [org.clojure/clojure]]
                                             [lein-cljsbuild "1.0.3"]
-                                            [com.cemerick/clojurescript.test "0.3.3"]
-                                            [lein-expectations "0.0.7"]]}}
+                                            [com.cemerick/clojurescript.test "0.3.3"]]}}
             :source-paths ["target/generated/src/clj" "target/generated/src/cljs"]
             :test-paths ["target/generated/test/clj"]
             :cljx {:builds [{:source-paths ["src/cljx"]
